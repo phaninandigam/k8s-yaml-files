@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-replicaset-deployment
+  labels:
+    app: my-jenkins
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: my-jenkins
+  template:
+    metadata:
+      labels:
+        app: my-jenkins
+    spec:
+      volumes: 
+        - name: jenkins-volume
+          hostPath: 
+            path: /home/ubuntu/my-jenkins
+            type: Directory 
+      containers:
+        - name: jenkins
+          image: jenkins/jenkins:latest
+          volumeMounts:
+            - mountPath: /var/jenkins_home
+              name: jenkins-volume
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkinsservice-nodeport
+spec:
+  type: NodePort
+  selector:
+    app: my-jenkins
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 30009

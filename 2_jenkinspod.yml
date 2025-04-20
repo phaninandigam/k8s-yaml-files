@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jenkinsnew
+spec:
+  containers:
+  - name: jenkins
+    image: jenkins/jenkins:latest
+  - name: tomcat
+    image: tomcat:latest

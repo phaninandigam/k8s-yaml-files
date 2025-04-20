@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkinsservices-test
+spec:
+  selector:
+    my-pod: Jenkins
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

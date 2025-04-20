@@ -1,0 +1,4 @@
+FROM python:3.10-slim
+RUN pip install kubernetes
+COPY 48_secret_python.py /app/get_secrets.py
+CMD ["python", "/app/get_secrets.py"]
