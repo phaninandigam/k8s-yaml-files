@@ -1,0 +1,4 @@
+replica: 2
+maxsurge: 2
+labels:
+  app: jenkins
